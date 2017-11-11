@@ -1,7 +1,5 @@
 # Agenda-des-animations-culturelles
 
-# Introduction et présentation de projet :
-
 # Introduction
 Le projet a pour but de mettre en place un entrepôt de données à partir d’un fichier CSV ou JSON récupéré sur un opendata, après quelques heures de recherche en ligne nous avons opté pour les données suivants : “Agenda des animations culturelles de la Bibliothèque Municipale de la ville de Nantes”.
 Nous mettrons en pratique tous les concepte liés à la BI appris dans ce module, pour cela nous utiliserons les outils tels que :
