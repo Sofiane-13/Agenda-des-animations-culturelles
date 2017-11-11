@@ -28,4 +28,5 @@ Avoir Oracle SQL Developer sur sa machine.
 Executer export.sql dans l'outil Oracle SQL Developer
 
 # Tester
-Les requets se trouventdans le fichier requetes.txt
+Les requets se trouvent dans le fichier requetes.txt
+Le nombre d'événements par tranche : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/master/evenementpartranche.png
