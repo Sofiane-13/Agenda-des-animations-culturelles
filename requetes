@@ -1,0 +1,50 @@
+Le nombre d'événements par tranche :
+
+SELECT COUNT(*), tranche AS num FROM   FAITS,PUBLICVISEDIM
+WHERE FAITS.PUBLICVISEID=PUBLICVISEDIM.PUBLICID
+GROUP BY TRANCHE
+
+--------------------------------------------------------------------------------------
+
+Le nombre d'événements par (année,mois) et (année,) et (mois,) et (,) :
+
+SELECT COUNT(*),year,month FROM   FAITS,DATEDIM
+WHERE FAITS.DATEID=DATEDIM.DATEID
+GROUP BY CUBE(year,month);
+ 
+---------------------------------------------------------------------------------------
+
+Le nombre d'événements par (category1,category2,category3) et (category1,category2) et (category1) et (,) :
+
+SELECT category1,category2,category3, COUNT(*) FROM   FAITS,CATEGORYDIM
+WHERE FAITS.CATEGORYID=CATEGORYDIM.CATEGORYID
+GROUP BY ROLLUP(category1,category2,category3);
+ 
+---------------------------------------------------------------------------------------
+
+Le nombre d'événements cumulé  par mois et ordonné par (month,year) :
+
+SELECT month,year,COUNT(*),sum(COUNT(*))
+over (order by year
+rows unbounded preceding)as EventSoFar FROM   FAITS,DATEDIM  
+WHERE FAITS.DATEID=DATEDIM.DATEID
+GROUP BY (month,year);
+ 
+---------------------------------------------------------------------------------------
+
+Le rang des l’adresses trié par le nombre d'événements pour chaque adresse :
+
+select adressdim.adressid,adressdim.name as adress,rank() over (order by count(*) desc) as rankv,count(*) as EventsNum
+from faits,adressdim
+where adressdim.adressid=faits.adressid
+group by (adressdim.ADRESSID,adressdim.name);
+ 
+-----------------------------------------------------------------------------------------
+
+Le rang de chaque prix (precision info) dans chaque tranche ordonné par nombre d'événements:
+
+SELECT tranche,precisioninfo,count(*),row_number() over(partition by tranche order by count(*) desc)as ranking  
+FROM   FAITS,PUBLICVISEDIM,tarifdim
+WHERE FAITS.PUBLICVISEID=PUBLICVISEDIM.PUBLICID and FAITS.TARIFID=tarifdim.tarifid
+GROUP BY precisioninfo,tranche;
+
