@@ -1,0 +1,35 @@
+CREATE TABLE `test`.`DateDim` ( `id` INT NOT NULL AUTO_INCREMENT , `day` INT NOT NULL , `month` INT NOT NULL , `year` INT NOT NULL , `startHour` INT NOT NULL , `endHour` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`categoryDims` ( `categoryId` INT NOT NULL AUTO_INCREMENT , `category1` VARCHAR(50) NOT NULL , `category2` VARCHAR(50) NOT NULL , `category3` VARCHAR(50) NOT NULL , `category4` VARCHAR(50) NOT NULL , `category5` VARCHAR(50) NOT NULL , PRIMARY KEY (`categoryId`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`AdressDim` ( `adressId` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , `adress` VARCHAR(100) NOT NULL , `city` VARCHAR(50) NOT NULL , `codePostal` VARCHAR(10) NOT NULL , PRIMARY KEY (`adressId`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`tarifDim` ( `tarifId` INT NOT NULL AUTO_INCREMENT , `free` INT NOT NULL , `precisioninfo` VARCHAR(100) NOT NULL , PRIMARY KEY (`tarifId`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`publicviseDim` ( `publicId` INT NOT NULL AUTO_INCREMENT , `tranche` VARCHAR(50) NOT NULL , `children` INT NOT NULL , PRIMARY KEY (`publicId`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`reservationdim` ( `reservationid` INT NOT NULL AUTO_INCREMENT , `annule` INT NOT NULL , `report` INT NOT NULL , `datereport` INT NOT NULL , `complet` INT NOT NULL , PRIMARY KEY (`reservationid`)) ENGINE = InnoDB;
+ 
+CREATE TABLE `test`.`information` ( `informationID` INT NOT NULL AUTO_INCREMENT , `infosupp` VARCHAR(100) NOT NULL , `url` VARCHAR(30) NOT NULL , `tel` VARCHAR(30) NOT NULL , `mail` VARCHAR(20) NOT NULL , `emetor` VARCHAR(30) NOT NULL , `lienaganda` VARCHAR(50) NOT NULL , PRIMARY KEY (`informationID`)) ENGINE = InnoDB;
+INSERT INTO categorydim(category1,category2,category3,category4,category5) SELECT DISTINCT categorie_1,categorie_2,categorie_3,categorie_4,categorie_5 FROM agenda
+ 
+INSERT INTO adressdim(name,adress,city,codepostal) SELECT DISTINCT nom,adresse,ville,code_postal FROM agenda
+ 
+INSERT INTO tarifdim(free,precisioninfo) SELECT DISTINCT gratuit,precisions_tarifs FROM agenda
+ 
+INSERT INTO publicvisedim(tranche,children) SELECT DISTINCT precisions_public,accueil_enfant FROM agenda
+ 
+INSERT INTO reservationdim(annule,report,datereport,complet) SELECT DISTINCT annule,reporte,date_report,complet FROM agenda
+ 
+INSERT INTO information(infosupp,url,tel,mail,emetor,lienaganda) SELECT DISTINCT info_suppl,url_internet_1,telephone_1,courriel_1,emetteur,lien_agenda FROM agenda
+
+ 
+INSERT INTO fait (adressId,categoryId,dateId,informationId,publicviseId,reservationId,tarifId,nom,description) SELECT DISTINCT adressdim.adressId,categorydim.categoryId,datedim.dateId,informationdim.informationID,publicvisedim.publicId,reservationdim.reservationid,tarifdim.tarifId,agenda.nom,agenda.description FROM agenda  
+LEFT JOIN  adressdim ON adressdim.name=agenda.lieu
+LEFT JOIN categorydim on categorydim.category1=agenda.categorie_1 AND categorydim.category2=agenda.categorie_2 AND categorydim.category3=agenda.categorie_3 AND  categorydim.category4=agenda.categorie_4 AND categorydim.category5=agenda.categorie_5
+LEFT JOIN datedim ON datedim.day=date_format(str_to_date(date, '%d/%m/%Y'), '%d') AND datedim.month=date_format(str_to_date(date, '%d/%m/%Y'), '%m') AND datedim.year=date_format(str_to_date(date, '%d/%m/%Y'), '20%y') AND datedim.startHour=agenda.heure_debut AND datedim.endHour=agenda.heure_fin
+LEFT JOIN informationdim ON informationdim.infosupp=agenda.info_suppl AND informationdim.lienaganda=agenda.lien_agenda AND informationdim.tel=agenda.telephone_1 AND informationdim.url=agenda.url_internet_1 AND informationdim.tel=agenda.telephone_1 AND informationdim.emetor=agenda.emetteur AND informationdim.mail=agenda.courriel_1
+LEFT JOIN publicvisedim ON publicvisedim.tranche=agenda.precisions_public AND publicvisedim.children=agenda.accueil_enfant
+LEFT JOIN reservationdim ON reservationdim.annule=agenda.annule AND reservationdim.report=agenda.reporte AND reservationdim.datereport=agenda.date_report AND reservationdim.complet=agenda.complet
+LEFT JOIN tarifdim ON tarifdim.free=agenda.gratuit AND tarifdim.precisioninfo=agenda.precisions_tarifs
+
