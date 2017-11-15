@@ -24,11 +24,11 @@ Shéma : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/ma
 
 # Processus
 
-# Etape 1 : 
+ Etape 1 : 
 
 Importation du fichier CSV dans la base de donnée ( table agenda )
 
-# Etape 2 :
+ Etape 2 :
 
 À partir de notre table agenda on fait des insertions dans les tables dimensions et la table des faits, pour certaines insertions on utilise le PL/SQL afin de verifier, si le format des attributs est adéquat on fait l'insertion, sinon on insere la ligne dans une table rejet.
 
