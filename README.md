@@ -30,7 +30,7 @@ Importation du fichier CSV dans la base de donnée ( table agenda )
 
 # Etape 2 :
 
-À partir de notre table agenda on fait des insertions dans les tables dimensions et la table de fait, pour certaines insertions on utilise le PL/SQL afin de verifier, si le format des attributs est adéquat on fait l'insertion, sinon on insere la ligne dans une table rejet.
+À partir de notre table agenda on fait des insertions dans les tables dimensions et la table des faits, pour certaines insertions on utilise le PL/SQL afin de verifier, si le format des attributs est adéquat on fait l'insertion, sinon on insere la ligne dans une table rejet.
 
 # Pré-requis
 
