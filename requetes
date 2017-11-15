@@ -48,3 +48,10 @@ FROM   FAITS,PUBLICVISEDIM,tarifdim
 WHERE FAITS.PUBLICVISEID=PUBLICVISEDIM.PUBLICID and FAITS.TARIFID=tarifdim.tarifid
 GROUP BY precisioninfo,tranche;
 
+-----------------------------------------------------------------------------------------
+
+create BITMAP INDEX isfree on TARIFDIM(free)
+
+create BITMAP INDEX datejoin on faits (TARIFDIM.free) from faits,tarifdim where faits.tarifid=tarifdim.tarifid ;
+
+--------------------------------------------------------------------------------------------------------------
