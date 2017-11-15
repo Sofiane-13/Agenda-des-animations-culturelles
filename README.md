@@ -20,7 +20,7 @@ l’exploitation de ces données ( écrire des requêtes pertinente ).
 
 # Conception du schéma de l'entrepôt
 Nous disposons du fichier CSV qui contient tous les informations de l’agenda des animations culturelles, à partir de ces données-là nous avons pu construire notre table de fait et nos tables de dimension.
-Shéma : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/master/shema.jpg
+Shéma : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/master/monshema.jpg
 
 # Pré-requis
 Avoir Oracle SQL Developer sur sa machine.
