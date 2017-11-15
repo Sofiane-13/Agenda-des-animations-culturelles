@@ -22,13 +22,26 @@ l’exploitation de ces données ( écrire des requêtes pertinente ).
 Nous disposons du fichier CSV qui contient tous les informations de l’agenda des animations culturelles, à partir de ces données-là nous avons pu construire notre table de fait et nos tables de dimension.
 Shéma : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/master/monshema.jpg
 
+#Processus
+
+# Etape 1 : 
+
+Importation du fichier CSV dans la base de donnée ( table agenda )
+
+# Etape 2 :
+
+À partir de notre table agenda on fait des insertions dans les tables dimensions et la table de fait, pour certaines insertions on utilise le PL/SQL afin de verifier, si le format des attributs est adéquat on fait l'insertion, sinon on insere la ligne dans une table rejet.
+
 # Pré-requis
+
 Avoir Oracle SQL Developer sur sa machine.
 
 # Installation
+
 Executer export.sql dans l'outil Oracle SQL Developer
 
 # Tester
+
 Les requets se trouvent dans le fichier requetes.txt
 
 Le nombre d'événements par tranche : https://github.com/Sofiane-13/Agenda-des-animations-culturelles/blob/master/evenementpartranche.png
